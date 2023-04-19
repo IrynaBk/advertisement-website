@@ -1,0 +1,54 @@
+$primary-color: #8564bf;
+$secondary-color:#ffc107;
+$text-color: #2e2827;
+$background: #dfe6e9;
+$text-hover-color: #000000;
+$main-font: "Lucida Console", Courier, monospace;
+
+
+@mixin container-prop{
+    align-items: center;
+    display: flex;
+    height: 100vh;
+    justify-content: center;
+}
+
+@mixin ad-location{
+    display: flex;
+    flex-wrap: wrap;
+    align-content: flex-start;
+    justify-content: flex-start;
+    align-items: baseline;
+    p{
+      font-size: 15px;
+      text-align: left;
+      color: $primary-color;
+    }
+    img{
+      height: 18px;
+      width: 18px;
+      float:left;
+      margin: 5px;
+      display: block;
+    }
+}
+
+@mixin background-prop{
+    background-image:linear-gradient($secondary-color, $primary-color);
+    font-family: $main-font;
+    font-size: 16px;
+    line-height: 1.5;
+    overflow: hidden;
+    margin: 0;
+    padding: 0;
+}
+
+@mixin white-container{
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    //text-align: center;
+    width: 100%;
+    max-width: 400px;
+}

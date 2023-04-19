@@ -1,0 +1,84 @@
+.authPage body {
+  background-image: linear-gradient(#ffc107, #8564bf);
+  font-family: "Lucida Console", Courier, monospace;
+  font-size: 16px;
+  line-height: 1.5;
+  overflow: hidden;
+  margin: 0;
+  padding: 0;
+}
+.authPage .container {
+  align-items: center;
+  display: flex;
+  height: 100vh;
+  justify-content: center;
+}
+.authPage .auth-form {
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  width: 100%;
+  max-width: 400px;
+}
+.authPage .auth-form p {
+  text-align: left;
+  color: #8a728d;
+}
+.authPage .auth-form h1 {
+  color: #8564bf;
+  font-size: 28px;
+  text-align: center;
+  margin-bottom: 30px;
+}
+.authPage .form-group {
+  margin-bottom: 20px;
+  text-align: left;
+  position: relative;
+}
+.authPage label {
+  display: block;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+.authPage input {
+  border: 2px solid #ffc107;
+  border-radius: 3px;
+  box-sizing: border-box;
+  display: block;
+  font-size: 16px;
+  padding: 10px;
+  width: 100%;
+}
+.authPage input:focus {
+  border-color: #8564bf;
+  outline: none;
+}
+.authPage .btn {
+  background-color: #8564bf;
+  border: none;
+  border-radius: 3px;
+  color: #fff;
+  cursor: pointer;
+  display: block;
+  font-size: 16px;
+  margin-top: 20px;
+  padding: 10px 20px;
+  text-align: center;
+  text-decoration: none;
+  width: 100%;
+  transition: background-color 0.2s ease-in-out;
+}
+.authPage .btn:hover {
+  background-color: #6a46aa;
+}
+.authPage .signup-link {
+  margin-top: 20px;
+}
+@media screen and (max-width: 400px) {
+  .authPage .auth-form {
+    display: block;
+    float: none;
+    width: 100%;
+  }
+}/*# sourceMappingURL=Login.css.map */

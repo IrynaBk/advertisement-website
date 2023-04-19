@@ -1,0 +1,28 @@
+.navbar {
+    background-color: $primary-color;
+    overflow: hidden;
+  
+  
+    .navbar-brand img {
+      height: 50px;
+      width: 50px;
+      float:left;
+      margin: 5px;
+      display: block;
+    }
+    .username-label {
+      float: left;
+      font-family: $main-font;
+      font-size: 20px;
+        display: block;
+      margin-right: auto;
+      color: $secondary-color;
+      &:hover {
+        color:$text-hover-color;
+      }
+    }
+    .search-form{
+      float: right;
+      display: flex;
+    }
+  }

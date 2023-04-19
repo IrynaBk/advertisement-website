@@ -1,0 +1,341 @@
+.navbar {
+  background-color: #8564bf;
+  overflow: hidden;
+}
+.navbar .navbar-brand img {
+  height: 50px;
+  width: 50px;
+  float: left;
+  margin: 5px;
+  display: block;
+}
+.navbar .username-label {
+  float: left;
+  font-family: "Lucida Console", Courier, monospace;
+  font-size: 20px;
+  display: block;
+  margin-right: auto;
+  color: #ffc107;
+}
+.navbar .username-label:hover {
+  color: #000000;
+}
+.navbar .search-form {
+  float: right;
+  display: flex;
+}
+
+.site-footer {
+  background-color: #8564bf;
+  padding: 45px 0 20px;
+  font-size: 15px;
+  line-height: 24px;
+  font-family: "Lucida Console", Courier, monospace;
+  color: black;
+}
+
+.site-footer hr {
+  border-top-color: #bbb;
+  opacity: 0.5;
+}
+
+.site-footer hr.small {
+  margin: 20px 0;
+}
+
+.site-footer h6 {
+  color: #fff;
+  font-size: 16px;
+  text-transform: uppercase;
+  margin-top: 5px;
+  letter-spacing: 2px;
+}
+
+.site-footer a {
+  color: #ffc107;
+}
+
+.site-footer a:hover {
+  color: #3366cc;
+  text-decoration: none;
+}
+
+.footer-links {
+  padding-left: 0;
+  list-style: none;
+}
+
+.footer-links li {
+  display: block;
+}
+
+.footer-links a {
+  color: #ffc107;
+}
+
+.footer-links a:active, .footer-links a:focus, .footer-links a:hover {
+  color: #eb6969;
+  text-decoration: none;
+}
+
+.footer-links.inline li {
+  display: inline-block;
+}
+
+.site-footer .social-icons {
+  text-align: right;
+}
+
+.site-footer .social-icons a {
+  width: 40px;
+  height: 40px;
+  line-height: 40px;
+  margin-left: 6px;
+  margin-right: 0;
+  border-radius: 100%;
+  background-color: #33353d;
+}
+
+.copyright-text {
+  margin: 0;
+}
+
+@media (max-width: 991px) {
+  .site-footer [class^=col-] {
+    margin-bottom: 30px;
+  }
+}
+@media (max-width: 767px) {
+  .site-footer {
+    padding-bottom: 0;
+  }
+  .site-footer .copyright-text, .site-footer .social-icons {
+    text-align: center;
+  }
+}
+.social-icons {
+  padding-left: 0;
+  margin-bottom: 0;
+  list-style: none;
+}
+
+.social-icons li {
+  display: inline-block;
+  margin-bottom: 4px;
+}
+
+.social-icons li.title {
+  margin-right: 15px;
+  text-transform: uppercase;
+  color: #96a2b2;
+  font-weight: 700;
+  font-size: 13px;
+}
+
+.social-icons a {
+  background-color: #eceeef;
+  color: #ffc107;
+  font-size: 16px;
+  display: inline-block;
+  line-height: 44px;
+  width: 44px;
+  height: 44px;
+  text-align: center;
+  margin-right: 8px;
+  border-radius: 100%;
+  transition: all 0.2s linear;
+}
+
+.social-icons a:active, .social-icons a:focus, .social-icons a:hover {
+  color: #fff;
+  background-color: #d54545;
+}
+
+.social-icons.size-sm a {
+  line-height: 34px;
+  height: 34px;
+  width: 34px;
+  font-size: 14px;
+}
+
+.social-icons a.facebook:hover {
+  background-color: #3b5998;
+}
+
+.social-icons a.twitter:hover {
+  background-color: #00aced;
+}
+
+.social-icons a.linkedin:hover {
+  background-color: #007bb6;
+}
+
+.social-icons a.dribbble:hover {
+  background-color: #ea4c89;
+}
+
+@media (max-width: 767px) {
+  .social-icons li.title {
+    display: block;
+    margin-right: 0;
+    font-weight: 600;
+  }
+}
+.AdMainPage body {
+  background-color: #dfe6e9;
+}
+.AdMainPage .container {
+  margin-top: 50px;
+}
+.AdMainPage .filter-container {
+  display: flex;
+  background-color: inherit;
+  align-items: flex-start;
+  margin: 5px;
+}
+.AdMainPage .filter-container .filter {
+  background: #ffffff;
+  overflow: hidden;
+  margin: 2px;
+  border: 1px solid #cbcbcb;
+  border-radius: 3px;
+  box-shadow: 0 0 1px rgba(0, 0, 0, 0.1), inset 0 0 10px rgba(0, 0, 0, 0.07);
+}
+.AdMainPage .filter-container .filter:focus, .AdMainPage .filter-container .filter:hover {
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+}
+.AdMainPage .filter-container .filter:after {
+  position: absolute;
+  top: 0;
+  right: 12px;
+  z-index: 1;
+  color: #bbbbbb;
+  line-height: 40px;
+  font-size: 14px;
+}
+.ie .AdMainPage .filter-container .filter:after {
+  display: none;
+}
+.AdMainPage .filter-container .filter select {
+  background: transparent;
+  background-image: none;
+  display: flex;
+  width: 100%;
+  outline: none;
+  color: #888888;
+  cursor: pointer;
+  z-index: 2;
+  border: none;
+  padding: 10px 10px 10px 5px;
+  margin: 2px;
+}
+.AdMainPage .filter-container .filter option:checked {
+  background-color: #ffc107;
+}
+.AdMainPage .ad-list {
+  background-color: #dfe6e9;
+  padding: 3em;
+  display: grid;
+  justify-content: center;
+}
+.AdMainPage .ad-list h1 {
+  text-align: center;
+  color: #2e2827;
+  font-family: "Lucida Console", Courier, monospace;
+}
+.AdMainPage .ad-list .ad {
+  background-color: white;
+  display: flex;
+  border-radius: 10px;
+  padding: 1em;
+  box-shadow: 0px 10px 5px #b2bec3;
+  text-align: center;
+  font-family: "Lucida Console", Courier, monospace;
+  flex-direction: column;
+  flex-wrap: wrap;
+  align-content: space-between;
+  justify-content: space-between;
+  align-items: center;
+}
+.AdMainPage .ad .title {
+  font-size: 18px;
+  font-weight: bold;
+}
+.AdMainPage .ad .image {
+  overflow: hidden;
+  border-radius: 5px;
+}
+.AdMainPage .ad .image img {
+  width: 300px;
+  height: 300px;
+  -o-object-fit: cover;
+     object-fit: cover;
+  transition: transform 0.25s;
+}
+.AdMainPage .ad .image:hover img {
+  transform: scale(1.1);
+}
+.AdMainPage .ad .text {
+  text-align: left;
+  margin-bottom: 0.5em;
+  font-size: 14px;
+}
+.AdMainPage .ad .ad-location {
+  display: flex;
+  flex-wrap: wrap;
+  align-content: flex-start;
+  justify-content: flex-start;
+  align-items: baseline;
+}
+.AdMainPage .ad .ad-location p {
+  font-size: 15px;
+  text-align: left;
+  color: #8564bf;
+}
+.AdMainPage .ad .ad-location img {
+  height: 18px;
+  width: 18px;
+  float: left;
+  margin: 5px;
+  display: block;
+}
+.AdMainPage .det-button {
+  background-color: #e8e4e4;
+  border: none;
+  border-radius: 5px;
+  font-size: 12px;
+  width: 100%;
+  height: 30px;
+  padding: 5px;
+  text-align: center;
+  color: #000;
+}
+.AdMainPage .det-button:hover {
+  box-shadow: 0px 5px 5px #b2bec3;
+  background-color: #ffc107;
+  color: #eb4d4b;
+}
+.AdMainPage .ad-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  align-items: center;
+  gap: 1rem;
+}
+@media screen and (max-width: 300px) {
+  .AdMainPage .filter-container {
+    flex-direction: column;
+    align-items: stretch;
+    justify-content: space-between;
+  }
+}
+@media (min-width: 720px) {
+  .AdMainPage .ad-container {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+@media (min-width: 1100px) {
+  .AdMainPage .ad-container {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}/*# sourceMappingURL=AdvertisementsList.css.map */
