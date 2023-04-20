@@ -1,7 +1,19 @@
+@import "variables.scss";
+
 .navbar {
     background-color: $primary-color;
     overflow: hidden;
+
+    a{
+      padding: 5px;
+      color: $secondary-color;
+      font-size: 24px;
+      font-family: $main-font;
+    }
   
+    #logout-button{
+      margin: 4px;
+    }
   
     .navbar-brand img {
       height: 50px;
@@ -13,7 +25,7 @@
     .username-label {
       float: left;
       font-family: $main-font;
-      font-size: 20px;
+      font-size: 24px;
         display: block;
       margin-right: auto;
       color: $secondary-color;
@@ -24,5 +36,14 @@
     .search-form{
       float: right;
       display: flex;
+    }
+
+    .nav-content{
+      display: flex;
+      align-items: center;
+    }
+
+    #login-button {
+      float: right;
     }
   }

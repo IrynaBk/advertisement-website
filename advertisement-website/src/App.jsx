@@ -6,6 +6,7 @@ import NoPage from "./NoPage";
 import AdPage from "./AdPage";
 import Login from "./Login";
 import Signup from "./Signup";
+import UserPage from "./UserPage";
 
 export default function App(){
   return (
@@ -17,6 +18,7 @@ export default function App(){
            <Route path="/advertisements/:id" element={<AdPage />} />
            <Route path="/login" element={<Login />} />
            <Route path="/signup" element={<Signup />} />
+           <Route path="/users/:id" element={<UserPage />} />
 
           {/*<Route path="contact" element={<Contact />} />*/}
           <Route path="*" element={<NoPage />} /> 

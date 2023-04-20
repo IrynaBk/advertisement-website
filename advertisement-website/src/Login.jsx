@@ -30,7 +30,7 @@ function Login() {
       });
       if ('token' in response) {
            localStorage.setItem('token', response['token']);
-          localStorage.setItem('user', JSON.stringify(response['user']));
+          localStorage.setItem('user', response['user']);
           return navigate("/advertisements");
   
       } else {

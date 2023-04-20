@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import  "../src/assets/AdPage.scss"
 import Navbar from './Navigation.jsx';
+import Loading from './Loading';
 
 function AdPage() {
 
@@ -23,7 +24,8 @@ function AdPage() {
     getAd()
   },[]);
   
-  console.log(ad)
+  let userString = localStorage.getItem("user");
+  const user = JSON.parse(userString);
 
 
   return (
@@ -59,9 +61,19 @@ function AdPage() {
             <div className="text} name">
               {ad.user.first_name} {ad.user.last_name}
             </div>
+            {user.username == ad.user.username?<>
+            <button id = "edit-button" className="det-button edit" >
+            Edit
+          </button>
+          <button id ="delete-button" className="det-button delete" >
+          Delete
+        </button>
+          </>
+          :
             <button className="det-button details" >
               go to chat
             </button>
+}
           </div>
         </div>
       </div>
@@ -69,7 +81,7 @@ function AdPage() {
   </section>
   </div>
   </>
-    : <div>Loading..</div>
+    : <Loading></Loading>
   );
 }
 export default AdPage;

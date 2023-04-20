@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import Advertisement from './Advertisement';
-import { Link } from 'react-router-dom';
+import { Link, useLocation  } from 'react-router-dom';
 import axios from 'axios';
 import "../src/assets/AdvertisementsList.scss";
 
 import Pagination from '@mui/material/Pagination';
 import Stack from '@mui/material/Stack';
 import Navbar from './Navigation.jsx';
+import Loading from './Loading';
 
 
 
@@ -18,6 +19,10 @@ function AdvertisementsList() {
   const [location, setLocation] = useState('all');
   const [category, setCategory] = useState('all');
 
+  const locationSearch = useLocation().search;
+  const searchParams = new URLSearchParams(locationSearch);
+  const searchTerm = searchParams.get('search');
+
   useEffect(() => {
     // Make a request to the server to retrieve the filtered and paginated data
     async function fetchData() {
@@ -25,7 +30,8 @@ function AdvertisementsList() {
         params: {
           location: location,
           category: category,
-          page: currentPage
+          page: currentPage,
+          search: searchTerm
         }
       });
       setAdvertisements(response.data);
@@ -33,7 +39,7 @@ function AdvertisementsList() {
     }
 
     fetchData();
-  }, [location, category, currentPage]);
+  }, [location, category, currentPage, searchTerm]);
 
   function handleLocationChange(event) {
     setLocation(event.target.value);
@@ -51,6 +57,7 @@ function AdvertisementsList() {
   }
 
   return (
+    advertisements?
     <>
     <Navbar></Navbar>
     <div className='AdMainPage'>
@@ -98,6 +105,7 @@ function AdvertisementsList() {
     </div>
     </div>
     </>
+    : <Loading></Loading>
   );
 }
 
