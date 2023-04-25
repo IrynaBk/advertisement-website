@@ -1,31 +1,50 @@
 import axios from 'axios';
 import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import  "../src/assets/AdPage.scss"
 import Navbar from './Navigation.jsx';
 import Loading from './Loading';
+import Footer from './Footer';
+
 
 function AdPage() {
+  axios.defaults.headers.common['Authorization'] = `Bearer ${localStorage.getItem('token')}`;
 
   const { id } = useParams();
   // Getter and setter for user state
   const [ad, setAd] = useState(null)
+  const [curUser, setCurUser] = useState(null)
+
+  const navigate = useNavigate()
+    const handleDelete = async () => {
+      
+
+      try {
+        await axios.delete(`http://127.0.0.1:3000/advertisements/${id}`);
+        navigate("/advertisements");
+      } catch (error) {
+        console.error(error);
+      }
+    };
 
   useEffect(() => {
     const getAd = async () => {
       const { data } = await axios(
         `http://127.0.0.1:3000/advertisements/${id}`
       )
+        console.log(data["advertisement"]);
+        let adJson = JSON.parse(data["advertisement"]);
+        console.log(adJson)
+        setAd(adJson);
+        setCurUser(data["is_curr_user"]);
+        console.log(curUser);
 
-      setAd(data)
     }
     console.log("I'm here")
 
     getAd()
-  },[]);
+  },[curUser]);
   
-  let userString = localStorage.getItem("user");
-  const user = JSON.parse(userString);
 
 
   return (
@@ -61,11 +80,11 @@ function AdPage() {
             <div className="text} name">
               {ad.user.first_name} {ad.user.last_name}
             </div>
-            {user.username == ad.user.username?<>
+            {curUser?<>
             <button id = "edit-button" className="det-button edit" >
             Edit
           </button>
-          <button id ="delete-button" className="det-button delete" >
+          <button id ="delete-button" className="det-button delete" onClick={handleDelete} >
           Delete
         </button>
           </>
@@ -80,6 +99,7 @@ function AdPage() {
     </div>
   </section>
   </div>
+  <Footer></Footer>
   </>
     : <Loading></Loading>
   );

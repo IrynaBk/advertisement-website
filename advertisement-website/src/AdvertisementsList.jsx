@@ -8,11 +8,14 @@ import Pagination from '@mui/material/Pagination';
 import Stack from '@mui/material/Stack';
 import Navbar from './Navigation.jsx';
 import Loading from './Loading';
-
+import ErrorHandler from './ErrorHandler';
+import Footer from './Footer';
 
 
 
 function AdvertisementsList() {
+  axios.defaults.headers.common['Authorization'] = `Bearer ${localStorage.getItem('token')}`;
+
   const [advertisements, setAdvertisements] = useState([]);
   const [totalPages, setTotalPages] = useState(0);
   const [currentPage, setCurrentPage] = useState(1);
@@ -22,6 +25,8 @@ function AdvertisementsList() {
   const locationSearch = useLocation().search;
   const searchParams = new URLSearchParams(locationSearch);
   const searchTerm = searchParams.get('search');
+  const userId = searchParams.get('user_id');
+
 
   useEffect(() => {
     // Make a request to the server to retrieve the filtered and paginated data
@@ -31,15 +36,19 @@ function AdvertisementsList() {
           location: location,
           category: category,
           page: currentPage,
-          search: searchTerm
+          search: searchTerm,
+          user_id: userId
         }
+      }).catch(error => {
+        console.error(error);
+        <ErrorHandler error={error.message}></ErrorHandler>
       });
       setAdvertisements(response.data);
       setTotalPages(Number(response.headers.get('total-pages')));
     }
 
     fetchData();
-  }, [location, category, currentPage, searchTerm]);
+  }, [location, category, currentPage, searchTerm, userId]);
 
   function handleLocationChange(event) {
     setLocation(event.target.value);
@@ -55,6 +64,8 @@ function AdvertisementsList() {
     setCurrentPage(Number(event.target.textContent));
     window.scrollTo({top: 0});
   }
+
+
 
   return (
     advertisements?
@@ -82,18 +93,22 @@ function AdvertisementsList() {
             <option value="IvanoFrankivsk">IvanoFrankivsk</option>
           </select>
         </div>
-        <Link to={`/advertisements/create`} id = "create-ad-button" className="btn btn-warning" style={{height: "48px"}}>
-          Create advertisement
-      </Link>
+        {localStorage.getItem('token') != null && (
+  <Link to={`/advertisements/create`} id="create-ad-button" className="btn btn-warning" style={{height: "48px"}}>
+    Create advertisement
+  </Link>
+)}
       </div>
     
       <div id="ad-container" className="ad-container">
+        {advertisements.length == 0? <div className='no-results'>No results :(</div>
+        : <>
         {advertisements.map(ad => (
           <Advertisement key={ad.id} ad={ad} />
-        ))}
+        ))}</>}
       </div>
     </section>
-    <div style={{ display: 'flex', justifyContent: 'center', margin: '5px' }}>
+    <div style={{ display: 'flex', justifyContent: 'center' ,backgroundColor: '#dfe6e9', padding: '5px' }}>
       <Stack spacing={2}>
         <Pagination
           count={totalPages}
@@ -104,6 +119,8 @@ function AdvertisementsList() {
       </Stack>
     </div>
     </div>
+    <Footer></Footer>
+
     </>
     : <Loading></Loading>
   );

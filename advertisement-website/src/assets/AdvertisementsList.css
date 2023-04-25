@@ -1,30 +1,3 @@
-.navbar {
-  background-color: #8564bf;
-  overflow: hidden;
-}
-.navbar .navbar-brand img {
-  height: 50px;
-  width: 50px;
-  float: left;
-  margin: 5px;
-  display: block;
-}
-.navbar .username-label {
-  float: left;
-  font-family: "Lucida Console", Courier, monospace;
-  font-size: 20px;
-  display: block;
-  margin-right: auto;
-  color: #ffc107;
-}
-.navbar .username-label:hover {
-  color: #000000;
-}
-.navbar .search-form {
-  float: right;
-  display: flex;
-}
-
 .site-footer {
   background-color: #8564bf;
   padding: 45px 0 20px;

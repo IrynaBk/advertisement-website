@@ -1,14 +1,18 @@
 import React from 'react';
+import axios from 'axios';
 import { useNavigate,  Link } from 'react-router-dom';
 import { useState } from 'react';
 import "../src/assets/_navbar.scss"
 
 
 function Navbar() {
+  axios.defaults.headers.common['Authorization'] = `Bearer ${localStorage.getItem('token')}`;
+
   const navigate = useNavigate();
   const [searchTerm, setSearchTerm] = useState('');
-  let userString = localStorage.getItem("user");
+  let userString = localStorage.getItem('user');
   const user = JSON.parse(userString);
+  console.log(user);
 
   const handleSearch = (e) => {
     e.preventDefault();
@@ -17,7 +21,13 @@ function Navbar() {
 
   const logout =() => {
     localStorage.clear();
-    navigate("/");
+    axios.delete('http://127.0.0.1:3000/logout')
+    .then(response => {
+      navigate('/');
+    })
+    .catch(error => {
+      // Handle error
+    });
   }
 
   return (

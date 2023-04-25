@@ -2,22 +2,25 @@ import React from 'react'
 import { Link, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import "../src/assets/Login.scss"
+import axios from 'axios';
 import { red } from '@mui/material/colors';
 
 
 async function loginUser(credentials) {
-    const json_data = JSON.stringify(credentials)
-    console.log(json_data)
-    return fetch(' http://127.0.0.1:3000/login', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: json_data
-    })
-      .then(data => data.json())
-   }
+  const json_data = JSON.stringify(credentials);
+  console.log(json_data);
 
+  try {
+    const response = await axios.post('http://127.0.0.1:3000/login', json_data, {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+    return response.data;
+  } catch (error) {
+    console.error(error);
+  }
+}
 
    async function registerUser(credentials) {
     const json_data = JSON.stringify(credentials)
@@ -39,7 +42,8 @@ function Signup() {
     const [first_name, setFirstName] = useState();
     const [last_name, setLastName] = useState();
     const [email, setEmail] = useState();
-    const [passwordConfirmation, setPasswordConfirmation] = useState();
+    const [password_confirmation, setPasswordConfirmation] = useState();
+
 
   
     const handleSubmit = async e => {
@@ -47,7 +51,7 @@ function Signup() {
         const responseReq = await registerUser({
             username,
             password, 
-            passwordConfirmation,
+            password_confirmation,
             email,
             first_name,
             last_name
@@ -58,8 +62,8 @@ function Signup() {
       });
       if ('token' in response) {
            localStorage.setItem('token', response['token']);
-          localStorage.setItem('user', JSON.stringify(response['user']));
-          return navigate("/advertisements");
+           localStorage.setItem('user', response['user']);
+           return navigate("/advertisements");
   
       } else {
         console.log("Failed", response.message, "error");
@@ -71,6 +75,7 @@ function Signup() {
         <div className='authPage'>
         <div className="container">
         <form className="auth-form login-form" onSubmit={handleSubmit}>
+      
           <div className="form-group">
             <label htmlFor="username">Username</label>
             <input type="text" id="username" name="username" placeholder="Enter username" 
