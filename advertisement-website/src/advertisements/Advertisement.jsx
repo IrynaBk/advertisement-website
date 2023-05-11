@@ -9,10 +9,10 @@ function Advertisement({ ad }) {
       <div className="content">
         <div className="title">{ad.title}</div>
         <div className="image">
-          <img src="../src/assets/loading.jpg" alt="loading..." />
+          <img src="src/assets/loading.jpg" alt="loading..." />
         </div>
         <div className="ad-location">
-          <img src="../src/assets/pin.png" alt="location" />
+          <img src="src/assets/pin.png" alt="location" />
           <p>{ad.location}</p>
         </div>
         <div className="text">

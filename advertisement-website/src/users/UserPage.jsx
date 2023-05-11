@@ -1,11 +1,13 @@
 import axios from 'axios';
-import Navbar from './Navigation.jsx';
-import Loading from './Loading';
+import Navbar from '../shared/Navigation.jsx';
+import Loading from '../shared/Loading.jsx';
 import { useParams } from 'react-router-dom';
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import "../src/assets/profile.scss";
-import Footer from './Footer';
+import "./profile.scss";
+import Footer from '../shared/Footer.jsx';
+import ErrorHandler from '../shared/ErrorHandler';
+
 
 
 
@@ -13,31 +15,37 @@ import Footer from './Footer';
 function UserPage() {
   axios.defaults.headers.common['Authorization'] = `Bearer ${localStorage.getItem('token')}`;
 
+  const [error, setError] = useState(null);
   const { id } = useParams();
   const [user, setUser] = useState(null)
   const [curUser, setCurUser] = useState(false)
 
   useEffect(() => {
     const getUser = async () => {
-      const { data } = await axios(
-        `http://127.0.0.1:3000/users/${id}`
-      )
-      console.log(data["user"])
+      try {
+        const { data } = await axios(`http://127.0.0.1:3000/users/${id}`);
+        console.log(data["user"])
         let userJson = JSON.parse(data["user"]);
         setUser(userJson);
         setCurUser(data["is_curr_user"]);
+      } catch (error) {
+        setError(error.message);
+      }
     }
     getUser()
-  },[]);
+  }, []);
+
+  console.log(user)
   
   return (
     user?
     <>
+    {error && <ErrorHandler error={error} />}
     <Navbar></Navbar>
     <section className="profile-sec">
       <div className="profile-container">
         <div className="content">
-          <div className="image"><img src="../src/assets/avatar.jpg" alt="Profile picture" /></div>
+          <div className="image"><img src={user.image_url} alt="Profile picture" /></div>
           <div className="info">
             <h2>{user.first_name} {user.last_name}</h2>
             <h6>{user.username}</h6>

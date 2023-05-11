@@ -2,14 +2,14 @@ import React, { useState, useEffect } from 'react';
 import Advertisement from './Advertisement';
 import { Link, useLocation  } from 'react-router-dom';
 import axios from 'axios';
-import "../src/assets/AdvertisementsList.scss";
+import "./AdvertisementsList.scss";
 
 import Pagination from '@mui/material/Pagination';
 import Stack from '@mui/material/Stack';
-import Navbar from './Navigation.jsx';
-import Loading from './Loading';
-import ErrorHandler from './ErrorHandler';
-import Footer from './Footer';
+import Navbar from '../shared/Navigation.jsx';
+import Loading from '../shared/Loading';
+import ErrorHandler from '../shared/ErrorHandler';
+import Footer from '../shared/Footer';
 
 
 
@@ -26,6 +26,7 @@ function AdvertisementsList() {
   const searchParams = new URLSearchParams(locationSearch);
   const searchTerm = searchParams.get('search');
   const userId = searchParams.get('user_id');
+  const [error, setError] = useState(null);
 
 
   useEffect(() => {
@@ -41,7 +42,7 @@ function AdvertisementsList() {
         }
       }).catch(error => {
         console.error(error);
-        <ErrorHandler error={error.message}></ErrorHandler>
+        setError(error);
       });
       setAdvertisements(response.data);
       setTotalPages(Number(response.headers.get('total-pages')));
@@ -70,6 +71,7 @@ function AdvertisementsList() {
   return (
     advertisements?
     <>
+    {error && <ErrorHandler error={error} />}
     <Navbar></Navbar>
     <div className='AdMainPage'>
     <section className="ad-list">

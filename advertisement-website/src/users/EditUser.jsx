@@ -1,10 +1,11 @@
 import React, { useState, useEffect} from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import "../src/assets/edit.scss";
+import "./edit.scss";
 import { Link } from 'react-router-dom';
-import Loading from './Loading';
-import Footer from './Footer';
+import Loading from '../shared/Loading';
+import Footer from '../shared/Footer';
+import ErrorHandler from '../shared/ErrorHandler';
 
 
 
@@ -13,6 +14,8 @@ function EditUser() {
 
   const { id } = useParams();
   const navigate = useNavigate();
+  const [error, setError] = useState(null);
+
 
   const [user, setUser] = useState({
     first_name: '',
@@ -46,19 +49,19 @@ function EditUser() {
         last_name: user.last_name,
         email: user.email
     }
-  // Compare the updated user object with the original user object
     axios.put(`http://127.0.0.1:3000/users/${user.id}`, fields)
       .then(response => {
         console.log(response.data);
         // Navigate to user profile page
         navigate(`/users/${id}`);      })
       .catch(error => {
-        console.log(error);
+        setError(error.message);
       });
     }
   return (
     user?
     <>
+    {error && <ErrorHandler error={error} />}
     <div className='edit-container'>
     <div className="container">
       <div className="auth-form login-form">

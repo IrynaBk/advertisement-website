@@ -1,12 +1,13 @@
-@import "variables.scss";
+@import "../assets/variables.scss";
 
+.authPage{
 
-.edit-container{
-    @include background-prop;
+  @include background-prop;
   
-  .container{
+  .container {
     @include container-prop;
   }
+  
 
   .auth-form {
    @include white-container;
@@ -69,6 +70,7 @@
   .btn:hover {
     background-color: darken($primary-color, 10%);
   }
+
   
   .signup-link {
     margin-top: 20px;

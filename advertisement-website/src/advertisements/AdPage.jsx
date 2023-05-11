@@ -1,10 +1,15 @@
 import axios from 'axios';
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import  "../src/assets/AdPage.scss"
-import Navbar from './Navigation.jsx';
-import Loading from './Loading';
-import Footer from './Footer';
+import  "./AdPage.scss"
+import Navbar from '../shared/Navigation.jsx';
+import Loading from '../shared/Loading';
+import Footer from '../shared/Footer';
+import locationPin from "../assets/pin.png";
+import adPicture from "../assets/loading.jpg";
+import person from "../assets/person.svg";
+
+
 
 
 function AdPage() {
@@ -12,8 +17,10 @@ function AdPage() {
 
   const { id } = useParams();
   // Getter and setter for user state
-  const [ad, setAd] = useState(null)
-  const [curUser, setCurUser] = useState(null)
+  const [ad, setAd] = useState(null);
+  const [curUser, setCurUser] = useState(null);
+  const [error, setError] = useState(null);
+
 
   const navigate = useNavigate()
     const handleDelete = async () => {
@@ -23,7 +30,7 @@ function AdPage() {
         await axios.delete(`http://127.0.0.1:3000/advertisements/${id}`);
         navigate("/advertisements");
       } catch (error) {
-        console.error(error);
+        setError(error);
       }
     };
 
@@ -40,7 +47,6 @@ function AdPage() {
         console.log(curUser);
 
     }
-    console.log("I'm here")
 
     getAd()
   },[curUser]);
@@ -57,12 +63,12 @@ function AdPage() {
       <div id={`ad-${ad.id}`} className="ad">
         <div className="ad-main">
           <div className="image">
-            <img src="../src/assets/loading.jpg" alt="loading..." />
+            <img src={adPicture} alt="loading..." />
           </div>
           <div className="info">
             <div className="title">{ad.title}</div>
             <div className="ad-location">
-              <img src="../src/assets/pin.png" alt="location" />
+              <img src={locationPin} alt="location" />
               <p>{ad.location}</p>
             </div>
             <div className="ad-category">{ad.category}</div>
@@ -75,7 +81,7 @@ function AdPage() {
           <div className="verticalLine"></div>
           <div className="owner-info">
             <div className="owner icon">
-              <img src="../src/assets/person.svg" alt="Owner" />
+              <img src={person} alt="Owner" />
             </div>
             <div className="text} name">
               {ad.user.first_name} {ad.user.last_name}

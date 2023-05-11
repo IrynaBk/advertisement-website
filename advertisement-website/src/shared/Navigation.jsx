@@ -2,7 +2,9 @@ import React from 'react';
 import axios from 'axios';
 import { useNavigate,  Link } from 'react-router-dom';
 import { useState } from 'react';
-import "../src/assets/_navbar.scss"
+import "./_navbar.scss";
+import logo from "../assets/megaphone.png";
+
 
 
 function Navbar() {
@@ -33,7 +35,7 @@ function Navbar() {
   return (
     <div className="navbar">
       <Link to={`/`} className="navbar-brand">
-      <img src="../src/assets/megaphone.png" alt="Site Icon"/>
+      <img src={logo} alt="Site Icon"/>
       </Link>
       {user?<Link to={`/users/${user.id}`} id="username-label" className="username-label">
       {user.username}

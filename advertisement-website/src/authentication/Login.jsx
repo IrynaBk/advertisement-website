@@ -2,8 +2,8 @@ import axios from 'axios';
 import React from 'react'
 import { Link, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
-import "../src/assets/Login.scss"
-import ErrorHandler from './ErrorHandler';
+import "./Login.scss"
+import ErrorHandler from '../shared/ErrorHandler';
 
 
 

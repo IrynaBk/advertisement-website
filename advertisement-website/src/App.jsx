@@ -1,14 +1,14 @@
-import AdvertisementsList from "./AdvertisementsList";
+import AdvertisementsList from "./advertisements/AdvertisementsList";
 import axios from 'axios';
 import ReactDOM from "react-dom/client";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Layout from "./Layout";
-import NoPage from "./NoPage";
-import AdPage from "./AdPage";
-import Login from "./Login";
-import Signup from "./Signup";
-import UserPage from "./UserPage";
-import EditUser from "./EditUser";
+import NoPage from "./shared/NoPage";
+import AdPage from "./advertisements/AdPage";
+import Login from "./authentication/Login";
+import Signup from "./authentication/Signup";
+import UserPage from "./users/UserPage";
+import EditUser from "./users/EditUser";
 
 console.log(localStorage.getItem('token'));
 axios.defaults.headers.common['Authorization'] = `Bearer ${localStorage.getItem('token')}`;
