@@ -16,10 +16,16 @@ function AdPage() {
   axios.defaults.headers.common['Authorization'] = `Bearer ${localStorage.getItem('token')}`;
 
   const { id } = useParams();
+
+  let userString = localStorage.getItem('user');
+  const user = JSON.parse(userString);
+
   // Getter and setter for user state
   const [ad, setAd] = useState(null);
   const [curUser, setCurUser] = useState(null);
   const [error, setError] = useState(null);
+  const [chatRoom, setChatRoom] = useState(null);
+
 
 
   const navigate = useNavigate()
@@ -50,6 +56,16 @@ function AdPage() {
 
     getAd()
   },[curUser]);
+
+
+  const handleStartChat = async () => {
+    const response = await axios.post('http://127.0.0.1:3000/chat_rooms', {
+      chat_room: { user1_id: user.id, user2_id: ad.user.id },
+    });
+    console.log("in start chat", response.data);
+    setChatRoom(response.data);
+    navigate(`/chat_rooms/${response.data.id}`);
+  };
   
 
 
@@ -95,7 +111,7 @@ function AdPage() {
         </button>
           </>
           :
-            <button className="det-button details" >
+            <button className="det-button details" onClick={handleStartChat}>
               go to chat
             </button>
 }

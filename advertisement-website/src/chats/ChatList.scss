@@ -1,0 +1,22 @@
+@import '../assets/variables.scss';
+
+.chat-list {
+    @include container-prop;
+    padding: 20px;
+  
+    a {
+      display: block;
+      margin: 10px 0;
+      padding: 10px;
+      border-radius: 5px;
+      color: $text-color;
+      transition: all 0.2s ease-in-out;
+  
+      &:hover {
+        background-color: $primary-color;
+        color: $text-hover-color;
+        transform: translateY(-2px);
+      }
+    }
+  }
+  

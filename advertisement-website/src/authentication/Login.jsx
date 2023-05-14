@@ -71,6 +71,9 @@ function Login() {
           <p className="signup-link">Don't have an account? <Link to={`/signup`}>
           Sign Up
             </Link></p>
+          <Link to={`/reset_password`}>
+          Forgot password?
+            </Link>
         </form>
       </div>
       </div>

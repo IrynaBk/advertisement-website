@@ -2,6 +2,10 @@ import React from "react";
 
 import { Link } from 'react-router-dom';
 
+import locationPin from "../assets/pin.png";
+import adPicture from "../assets/loading.jpg";
+import person from "../assets/person.svg";
+
 
 function Advertisement({ ad }) {
   return (
@@ -9,10 +13,10 @@ function Advertisement({ ad }) {
       <div className="content">
         <div className="title">{ad.title}</div>
         <div className="image">
-          <img src="src/assets/loading.jpg" alt="loading..." />
+          <img src={adPicture} alt="loading..." />
         </div>
         <div className="ad-location">
-          <img src="src/assets/pin.png" alt="location" />
+          <img src={locationPin} alt="location" />
           <p>{ad.location}</p>
         </div>
         <div className="text">

@@ -57,12 +57,16 @@ function UserPage() {
             {/* <a className="chats" href="#">My chats</a> */}
           </div>
           {curUser?
+          <>
+          <Link to={`/chat_rooms`}>
+            My chats
+          </Link>
           <div className="button-container">
             <Link to={`/users/edit/${user.id}`} className="btn button det-button edit">
               Edit
             </Link>
             <button type="submit" className="btn delete">Delete</button>
-          </div>
+          </div></>
           : <></> }
         </div>
       </div>
