@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import Cable from 'actioncable';
 import MessageList from './MessageList';
 import { Link, useParams } from 'react-router-dom';
@@ -13,6 +13,10 @@ const ChatRoom = () => {
 
 const [messages, setMessages] = useState([]);
 
+const [interlocutor, setInterlocutor] = useState(null);
+
+
+
 const {id} = useParams();
 
 async function getMessages() {
@@ -20,7 +24,9 @@ async function getMessages() {
     const response = await axios.get(`http://127.0.0.1:3000/chat_rooms/${id}/messages`);
     const data = response.data;
     console.log(data);
-    setMessages(data);
+    setMessages(data["messages"]);
+    console.log(messages);
+    setInterlocutor(data["user"]);
     return data;
   } catch (error) {
     console.error(error);
@@ -37,7 +43,7 @@ async function getMessages() {
           if (data.body) {
             setMessages((prevMessages) => [...prevMessages, data]);
           } else {
-            setMessages(data);
+            setMessages(data["messages"]);
           }
         },
       }
@@ -49,6 +55,7 @@ async function getMessages() {
       channel.unsubscribe();
     };
   }, [id]);
+
 
   
 
@@ -68,6 +75,7 @@ async function getMessages() {
   };
 
   return (
+    interlocutor?
     <>
     <Navbar></Navbar>
     <section className='chatroom'>
@@ -76,11 +84,9 @@ async function getMessages() {
     <div className="user-panel">
       <Link to={`/chat_rooms`} className='back-to-chats'>back
       </Link>
-      <h4>Hamster Hamstroiko </h4>
+      <Link to={`/users/${interlocutor.id}`} className='go-to-profile'><h4>{interlocutor.first_name} {interlocutor.last_name}</h4></Link>
     </div>
-      <div className="message-list">
-      <MessageList messages={messages} />     
-       </div>
+      <MessageList messages={messages} otherId={interlocutor.id} />     
     <div className="message-form-div">
       <form id="message-form" className='message-form' onSubmit={handleSubmit}>
         <div className="form-group">
@@ -93,7 +99,7 @@ async function getMessages() {
 </div>
     </section>
     <Footer></Footer>
-    </>
+    </> : <></>
   );
 };
 

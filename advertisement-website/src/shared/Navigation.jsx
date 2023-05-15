@@ -14,7 +14,6 @@ function Navbar() {
   const [searchTerm, setSearchTerm] = useState('');
   let userString = localStorage.getItem('user');
   const user = JSON.parse(userString);
-  console.log(user);
 
   const handleSearch = (e) => {
     e.preventDefault();
