@@ -25,20 +25,22 @@ function ChatList() {
     <section className='chatlist-sec'>
       <div className='container'>
         <div className='content'>
-    <div className='chat-list'>
-      {chatRooms.map(chatRoom => (
-        <div className='chat' key={chatRoom.id}>
-          <Link to={`/chat_rooms/${chatRoom.id}`}>
-            {chatRoom.user1_id === user.id ? chatRoom.user2.full_name  : chatRoom.user1.full_name}
-          </Link>
+          <div className='chat-list'>
+            {chatRooms.map(chatRoom => (
+              <div className='chat' key={chatRoom.id}>
+                <Link to={`/chat_rooms/${chatRoom.id}`}>
+                  {chatRoom.user1_id === user.id ? chatRoom.user2.full_name  : chatRoom.user1.full_name}
+                </Link>
+                {chatRoom.current_user_unread_messages_count > 0 && 
+                 <span className='unread-count'>{chatRoom.current_user_unread_messages_count}</span>}              
+                 </div>
+            ))}
+          </div>
         </div>
-      ))}
       </div>
-    </div>
-    </div>
     </section>
-     <Footer></Footer>
-     </>: <Loading></Loading>
+    <Footer></Footer>
+    </>: <Loading></Loading>
   );
 }
 export default ChatList;

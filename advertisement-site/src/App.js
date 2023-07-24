@@ -2,6 +2,7 @@ import AdvertisementsList from "./advertisements/AdvertisementsList";
 import axios from 'axios';
 import 'bootstrap/dist/css/bootstrap.css';
 import ReactDOM from "react-dom/client";
+import Cable from 'actioncable';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import NoPage from "./shared/NoPage";
 import AdPage from "./advertisements/AdPage";
@@ -15,16 +16,45 @@ import Navbar from "./shared/Navigation";
 import ChatRoom from "./chats/ChatRoom";
 import ChatList from "./chats/ChatList";
 import CreateAd from "./advertisements/CreateAd";
+import Notification from "./shared/Notification";
+import { useState, useEffect } from "react";
 
 
-console.log(localStorage.getItem('token'));
 axios.defaults.headers.common['Authorization'] = `Bearer ${localStorage.getItem('token')}`;
 
 
+
+
+
 export default function App(){
+  const userString = localStorage.getItem('user');
+  const user = JSON.parse(userString);
+  const [notificationMessage, setNotificationMessage] = useState('');
+
+  useEffect(() => {
+    const userString = localStorage.getItem('user');
+    const user = JSON.parse(userString);
+    if (user) {
+    const cable = Cable.createConsumer(`ws://localhost:3000/cable?token=${localStorage.getItem('token')}`);
+    const channel = cable.subscriptions.create(
+      { channel: 'NotificationsChannel', user_id: user.id },
+      {
+        received: (data) => {
+          setNotificationMessage(data.message);
+        },
+      }
+    );
+
+    return () => {
+      channel.unsubscribe();
+    };
+  }
+  }, [user]);
+
   return (
     <BrowserRouter>
         <Navbar></Navbar>
+        {notificationMessage && <Notification message={notificationMessage} />}
       <Routes>
           <Route index element={<AdvertisementsList />} />
            <Route path="/advertisements" element={<AdvertisementsList />} />

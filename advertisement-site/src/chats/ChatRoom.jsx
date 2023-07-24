@@ -34,12 +34,11 @@ async function getMessages() {
   }
 }
   useEffect(() => {
-    const cable = Cable.createConsumer('ws://localhost:3000/cable');
+    const cable = Cable.createConsumer(`ws://localhost:3000/cable?token=${localStorage.getItem('token')}`);
     const channel = cable.subscriptions.create(
       { channel: 'ChatsChannel', room: id },
       {
         received: (data) => {
-          console.log(data, "datta");
           if (data.body) {
             setMessages((prevMessages) => [...prevMessages, data]);
           } else {
