@@ -78,6 +78,26 @@
           overflow-y: scroll;
           overflow-x: hidden;
           list-style-position: inside;
+          .minimalistic-button {
+            background: none;
+            border: none;
+            padding: 0;
+            align-self: center;
+            cursor: pointer;
+            font-family: $main-font; /* You can use any sans-serif font here */
+            font-size: 16px;
+            color: #888; /* Subdued color for minimalistic look */
+            text-decoration: underline; /* Making it look more like a link or label */
+            transition: color 0.3s ease; /* Smooth transition for hover effect */
+        }
+        
+        .minimalistic-button:hover {
+            color: #666; /* Slightly darker shade on hover */
+        }
+        
+        .minimalistic-button:focus {
+            outline: none; /* Removing the default focus outline */
+        }
           
           .message-container{
             display: flex;

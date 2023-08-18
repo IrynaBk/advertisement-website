@@ -7,11 +7,17 @@ import AxiosClient from '../AxiosClient';
 import "./Chat.scss";
 import Navbar from "../shared/Navigation.jsx";
 import Footer from "../shared/Footer.jsx";
+import Notification from '../shared/Notification';
 
 const ChatRoom = () => {
   axios.defaults.headers.common['Authorization'] = `Bearer ${localStorage.getItem('token')}`;
 
 const [messages, setMessages] = useState([]);
+const [page, setPage] = useState(1);
+const [lastMessageTimestamp, setLastMessageTimestamp] = useState(null);
+const [notificationMessage, setNotificationMessage] = useState(null);
+
+
 
 const [interlocutor, setInterlocutor] = useState(null);
 
@@ -19,41 +25,44 @@ const [interlocutor, setInterlocutor] = useState(null);
 
 const {id} = useParams();
 
+
 async function getMessages() {
   try {
-    const response = await axios.get(`http://127.0.0.1:3000/chat_rooms/${id}/messages`);
+    const url = lastMessageTimestamp
+      ? `http://127.0.0.1:3000/chat_rooms/${id}/messages?page=${page}&last_message_timestamp=${lastMessageTimestamp}`
+      : `http://127.0.0.1:3000/chat_rooms/${id}/messages?page=${page}`;
+    const response = await axios.get(url)
     const data = response.data;
-    console.log(data);
-    setMessages(data["messages"]);
-    console.log(messages);
+    if (data.messages.length === 0) {
+      setNotificationMessage('No more messages to load.');
+      return;  
+    }
+    setMessages((prevMessages) => [...data["messages"], ...prevMessages]);
     setInterlocutor(data["user"]);
+    setLastMessageTimestamp(data.messages[0].created_at)
     return data;
   } catch (error) {
     console.error(error);
     return [];
   }
 }
-  useEffect(() => {
-    const cable = Cable.createConsumer(`ws://localhost:3000/cable?token=${localStorage.getItem('token')}`);
-    const channel = cable.subscriptions.create(
-      { channel: 'ChatsChannel', room: id },
-      {
-        received: (data) => {
-          if (data.body) {
-            setMessages((prevMessages) => [...prevMessages, data]);
-          } else {
-            setMessages(data["messages"]);
-          }
-        },
-      }
-    );
+useEffect(() => {
+  const cable = Cable.createConsumer(`ws://localhost:3000/cable?token=${localStorage.getItem('token')}`);
+  const channel = cable.subscriptions.create(
+    { channel: 'ChatsChannel', room: id },
+    {
+      
+      received: (data) => {
+        setMessages(prevMessages => [...prevMessages, data]);
+      },
+    }
+  );
+  getMessages();
 
-    getMessages();
-
-    return () => {
-      channel.unsubscribe();
-    };
-  }, [id]);
+  return () => {
+    channel.unsubscribe();
+  };
+}, [id, page]);
 
 
   
@@ -73,9 +82,14 @@ async function getMessages() {
       .catch((error) => console.log(error));
   };
 
+  const handleLoadMore = () => {
+    setPage(page + 1);
+  };
+
   return (
     interlocutor?
     <>
+    {notificationMessage && <Notification message={notificationMessage}/>}
     <section className='chatroom'>
     <div className="container">
       <div className='content'>
@@ -84,7 +98,11 @@ async function getMessages() {
       </Link>
       <Link to={`/users/${interlocutor.id}`} className='go-to-profile'><h4>{interlocutor.first_name} {interlocutor.last_name}</h4></Link>
     </div>
-      <MessageList messages={messages} otherId={interlocutor.id} />     
+    <MessageList
+              messages={messages}
+              otherId={interlocutor.id}
+              onLoadMore={handleLoadMore}
+            />   
     <div className="message-form-div">
       <form id="message-form" className='message-form' onSubmit={handleSubmit}>
         <div className="form-group">

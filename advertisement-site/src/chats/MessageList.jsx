@@ -4,7 +4,7 @@ const MessageList = (props) => {
 
   const messageEl = useRef(null);
 
-  const { messages, otherId } = props;
+  const { messages, otherId, onLoadMore } = props;
 
   function formatDate(dateString) {
     const date = new Date(dateString);
@@ -27,8 +27,10 @@ const MessageList = (props) => {
   
   return (
     <div className="message-list" ref={messageEl}>
+            <button className="minimalistic-button" onClick={onLoadMore}>Load more messages</button>
+
       {messages.map((message) => (
-        <div className={`message ${message.user_id === otherId ? 'not-my-message' : 'own-message'}`} key={message.id}>
+        <div id = {message.id} className={`message ${message.user_id === otherId ? 'not-my-message' : 'own-message'}`} key={message.id}>
         <span className="text">{message.body}</span> <span className="time">{formatDate(message.created_at)}</span>
       </div>
       ))}
