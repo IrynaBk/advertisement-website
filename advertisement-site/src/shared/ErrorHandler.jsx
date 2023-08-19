@@ -2,6 +2,7 @@ import React from "react";
 import { Alert } from "@mui/material";
 
 function ErrorHandler({ error }) {
+  console.log("error!")
   return (
     <Alert data-testid="error-handler"
       severity="error"
@@ -14,7 +15,7 @@ function ErrorHandler({ error }) {
         boxShadow: "0px 4px 12px rgba(224, 122, 95, 0.5)",
       }}
     >
-      {error.response.data.error}
+      {error}
     </Alert>
   );
 }

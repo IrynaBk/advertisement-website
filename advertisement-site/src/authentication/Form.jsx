@@ -4,8 +4,14 @@ import axios from 'axios';
 import ErrorHandler from '../shared/ErrorHandler';
 import AxiosClient from '../AxiosClient';
 
-class Form extends React.Component {
+const errorToString = (errorObj) => {
+  return Object.entries(errorObj)
+      .map(([key, value]) => `${key}: ${value.join(", ")}`)
+      .join("; ");
+};
 
+class Form extends React.Component {
+ 
     state = {
         username: '',
         password: '',
@@ -13,7 +19,7 @@ class Form extends React.Component {
         first_name: '',
         last_name:'',
         email:'',
-        image: {},
+        image: null,
         error: null
       }
 
@@ -31,6 +37,8 @@ class Form extends React.Component {
     this.state.error = error;
   });
     }
+
+    
     
 
       onImageChange = event => { 
@@ -49,21 +57,32 @@ class Form extends React.Component {
     onSubmit = (e) => {
         e.preventDefault()
         const form = new FormData()
-        form.append("image", this.state.image)
+        if (this.state.image){
+          form.append("image", this.state.image)
+        }
         form.append("email", this.state.email)
         form.append("username", this.state.username)
         form.append("first_name", this.state.first_name)
         form.append("last_name", this.state.last_name)
         form.append("password", this.state.password)
         form.append("password_confirmation", this.state.password_confirmation)
-        fetch(`http://localhost:3000/users`, {
-            method: "POST",
-            body: form
-        }).then(response => {
-          this.login(this.state.username, this.state.password)
+        fetch('http://localhost:3000/users', {
+          method: "POST",
+          body: form
+        })
+        .then(response => {
+          if (!response.ok) {
+            return response.json().then(data => {
+              throw data;
+            });
+          }
+          return response.json();
+        })
+        .then(data => {
+          this.login(this.state.username, this.state.password);
         })
         .catch(error => {
-          this.state.error = error;
+          this.setState({ error: errorToString(error) });
         });
     }
     render(){

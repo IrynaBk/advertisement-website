@@ -13,6 +13,7 @@ import AxiosClient from '../AxiosClient.jsx';
 
 
 function UserPage() {
+  const DEFAULT_S3_IMAGE_URL = 'https://advertisement-website.s3.eu-west-3.amazonaws.com/default.jpg'
 
   const [error, setError] = useState(null);
   const { id } = useParams();
@@ -44,7 +45,7 @@ function UserPage() {
     <section className="profile-sec">
       <div className="profile-container">
         <div className="content">
-          <div className="image"><img src={user.image_url} alt="Profile picture" /></div>
+        <img src={user.image_url || DEFAULT_S3_IMAGE_URL} alt="Profile picture" />
           <div className="info">
             <h2>{user.first_name} {user.last_name}</h2>
             <h6>{user.username}</h6>
