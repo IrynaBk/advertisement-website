@@ -3,12 +3,12 @@ import axios from 'axios';
 import { useNavigate,  Link } from 'react-router-dom';
 import { useState } from 'react';
 import "./_navbar.scss";
-import logo from "../assets/megaphone.png";
 import AxiosClient from '../AxiosClient';
 
 
 function Navbar() {
   axios.defaults.headers.common['Authorization'] = `Bearer ${localStorage.getItem('token')}`;
+  const logo = "https://advertisement-website.s3.eu-west-3.amazonaws.com/static+icons+public/megaphone.png";
 
   const navigate = useNavigate();
   const [searchTerm, setSearchTerm] = useState('');

@@ -5,15 +5,17 @@ import React, { useState, useEffect } from 'react';
 import Navbar from '../shared/Navigation.jsx';
 import Loading from '../shared/Loading';
 import Footer from '../shared/Footer';
-import locationPin from "../assets/pin.png";
 import adPicture from "../assets/loading.jpg";
-import person from "../assets/person.svg";
 import AxiosClient from '../AxiosClient';
 
 
 
 function AdPage() {
   axios.defaults.headers.common['Authorization'] = `Bearer ${localStorage.getItem('token')}`;
+  const locationPin  = "https://advertisement-website.s3.eu-west-3.amazonaws.com/static+icons+public/pin.png";
+  const person = "https://advertisement-website.s3.eu-west-3.amazonaws.com/static+icons+public/person.svg";
+  const adPicture = "https://advertisement-website.s3.eu-west-3.amazonaws.com/static+icons+public/loading.jpg";
+
 
   const { id } = useParams();
 

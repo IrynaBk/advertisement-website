@@ -2,12 +2,12 @@ import React from "react";
 
 import { Link } from 'react-router-dom';
 
-import locationPin from "../assets/pin.png";
-import adPicture from "../assets/loading.jpg";
-import person from "../assets/person.svg";
 
 
 function Advertisement({ ad }) {
+  const locationPin  = "https://advertisement-website.s3.eu-west-3.amazonaws.com/static+icons+public/pin.png";
+  const adPicture = "https://advertisement-website.s3.eu-west-3.amazonaws.com/static+icons+public/loading.jpg";
+
   return (
     <div id={`ad-${ad.id}`} className="ad">
       <div className="content">
