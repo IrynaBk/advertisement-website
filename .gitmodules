@@ -1,0 +1,3 @@
+[submodule "ads-backend"]
+	path = ads-backend
+	url = https://github.com/IrynaBk/advertisement-site-api.git
